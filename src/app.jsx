@@ -1,50 +1,112 @@
+import { useState } from "react";
 import "./app.css";
 import Header from "./components/header.jsx";
 import Navbar from "./components/navbar.jsx";
 import Footer from "./components/footer.jsx";
 import StudentCard from "./components/studentCard.jsx";
-
-const etudiants = [
-  {
-    prenom: "Slim",
-    nom: "Boubaker",
-    email: "slimboubaker@gmail.com",
-    telephone: "+216 99 999 999",
-    filiere: "Génie Logiciel et Systèmes d'Information",
-    anneeEtude: "2ème année",
-    groupe: "GLSI 2",
-    ville: "Mahdia",
-  },
-  {
-    prenom: "Sarra",
-    nom: "Trabelsi",
-    email: "sarra.trabelsi@gmail.com",
-    telephone: "+216 22 345 678",
-    filiere: "Génie Logiciel et Systèmes d'Information",
-    anneeEtude: "2ème année",
-    groupe: "GLSI 1",
-    ville: "Sousse",
-  },
-  {
-    prenom: "Mariem",
-    nom: "Khalfallah",
-    email: "mariem.khalfallah@gmail.com",
-    telephone: "+216 27 567 890",
-    filiere: "Génie Logiciel et Systèmes d'Information",
-    anneeEtude: "2ème année",
-    groupe: "GLSI 2",
-    ville: "Sfax",
-  },
-];
+import studentImage1 from "./assets/1.jpg"; 
+import studentImage2 from "./assets/2.jpeg"; 
+import studentImage3 from "./assets/3.jpeg"; 
 
 function App() {
+  const [etudiants, setEtudiants] = useState([
+    {
+      prenom: "amine ",
+      nom: "amine",
+      email: "slimboubaker@gmail.com",
+      telephone: "+216 99 999 999",
+      filiere: "Génie Logiciel et Systèmes d'Information",
+      anneeEtude: "2ème année",
+      groupe: "GLSI 2",
+      ville: "Mahdia",
+      image: studentImage1,
+    },
+    {
+      prenom: "mahdi ",
+      nom: "mahdi",
+      email: "sarra.trabelsi@gmail.com",
+      telephone: "+216 22 345 678",
+      filiere: "Génie Logiciel et Systèmes d'Information",
+      anneeEtude: "2ème année",
+      groupe: "GLSI 1",
+      ville: "Sousse",
+      image: studentImage2,
+    },
+    {
+      prenom: "sousou",
+      nom: "boubou",
+      email: "mariem.khalfallah@gmail.com",
+      telephone: "+216 27 567 890",
+      filiere: "Génie Logiciel et Systèmes d'Information",
+      anneeEtude: "2ème année",
+      groupe: "GLSI 2",
+      ville: "Sfax",
+      image: studentImage3,
+    },
+  ]);
+
+  // Task 5: State for the field of study filter
+  const [filiereFiltree, setFiliereFiltree] = useState("Tous");
+
+  // Task 1: Add a student
+  const ajouterEtudiant = () => {
+    const nouvelEtudiant = {
+      prenom: "Yassine",
+      nom: "Ben Salem",
+      email: "yassine.bensalem@gmail.com",
+      telephone: "+216 44 444 444",
+      filiere: "Génie Logiciel et Systèmes d'Information",
+      anneeEtude: "2ème année",
+      groupe: "GLSI 1",
+      ville: "Kairouan",
+      image: studentImage1,
+    };
+    setEtudiants([...etudiants, nouvelEtudiant]);
+  };
+
+  // Task 3: Delete a student
+  const supprimerEtudiant = (emailAExclure) => {
+    setEtudiants(etudiants.filter((etudiant) => etudiant.email !== emailAExclure));
+  };
+
+  // Task 4: Modify a student's info
+  const modifierEtudiant = (emailCible) => {
+    setEtudiants(
+      etudiants.map((etudiant) =>
+        etudiant.email === emailCible
+          ? { ...etudiant, ville: "Tunis" }
+          : etudiant
+      )
+    );
+  };
+
+  // Task 5: Filter students based on selection
+  const etudiantsFiltres = filiereFiltree === "Tous"
+    ? etudiants
+    : etudiants.filter((etudiant) => etudiant.filiere === filiereFiltree);
+
   return (
     <div className="container">
       <Header />
       <Navbar />
       
       <main>
-        {etudiants.map((etudiant) => (
+        <div className="actions" style={{ margin: "20px", display: "flex", gap: "10px", alignItems: "center" }}>
+          <button onClick={ajouterEtudiant}>+ Ajouter un étudiant</button>
+
+          {/* Task 5: Dropdown filter */}
+          <select 
+            value={filiereFiltree} 
+            onChange={(e) => setFiliereFiltree(e.target.value)}
+            style={{ padding: "5px" }}
+          >
+            <option value="Tous">Toutes les filières</option>
+            <option value="Génie Logiciel et Systèmes d'Information">Génie Logiciel et Systèmes d'Information</option>
+          </select>
+        </div>
+
+        {/* Map through the filtered list */}
+        {etudiantsFiltres.map((etudiant) => (
           <StudentCard
             key={etudiant.email}
             prenom={etudiant.prenom}
@@ -55,6 +117,9 @@ function App() {
             anneeEtude={etudiant.anneeEtude}
             groupe={etudiant.groupe}
             ville={etudiant.ville}
+            image={etudiant.image}
+            supprimer={() => supprimerEtudiant(etudiant.email)}
+            modifier={() => modifierEtudiant(etudiant.email)}
           />
         ))}
       </main>
