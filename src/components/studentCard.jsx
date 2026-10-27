@@ -18,8 +18,7 @@ function StudentCard(props) {
         src={props.image}
         alt={`${props.prenom} ${props.nom}`}
       />
-      <h2>Fiche étudiant</h2>
-      <p><strong>Nom & Prénom:</strong> {props.prenom} {props.nom}</p>
+      <h2>{props.prenom} {props.nom}</h2>
       <p><strong>Filière:</strong> {props.filiere}</p>
       <p><strong>Année:</strong> {props.anneeEtude}</p>
       <p><strong>Groupe:</strong> {props.groupe}</p>
@@ -34,17 +33,17 @@ function StudentCard(props) {
       )}
 
       {/* Button to show/hide coordinates */}
-      <button onClick={basculerInformations} style={{ margin: "5px 0", display: "block" }}>
+      <button onClick={basculerInformations}>
         {coordonneesVisibles ? "Masquer les coordonnées" : "Afficher les coordonnées"}
       </button>
 
       {/* Task 4: Button to modify student info */}
-      <button onClick={props.modifier} style={{ backgroundColor: "#ffc107", color: "black", margin: "5px 0", display: "block" }}>
+      <button className="edit-button" onClick={props.modifier}>
         Modifier le nom
       </button>
 
       {/* Task 3: Button to delete student */}
-      <button onClick={props.supprimer} style={{ backgroundColor: "#ff4d4d", color: "white", margin: "5px 0", display: "block" }}>
+      <button className="delete-button" onClick={props.supprimer}>
         Supprimer l'étudiant
       </button>
     </div>

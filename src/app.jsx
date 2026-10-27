@@ -97,14 +97,13 @@ function App() {
       <Navbar />
       
       <main>
-        <div className="actions" style={{ margin: "20px", display: "flex", gap: "10px", alignItems: "center" }}>
+        <div className="student-actions">
           <button onClick={ajouterEtudiant}>+ Ajouter un étudiant</button>
 
           {/* Task 5: Dropdown filter */}
           <select 
             value={filiereFiltree} 
             onChange={(e) => setFiliereFiltree(e.target.value)}
-            style={{ padding: "5px" }}
           >
             <option value="Tous">Toutes les filières</option>
             <option value="Génie Logiciel et Systèmes d'Information">Génie Logiciel et Systèmes d'Information</option>
