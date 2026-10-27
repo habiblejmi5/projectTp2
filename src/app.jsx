@@ -69,12 +69,18 @@ function App() {
     setEtudiants(etudiants.filter((etudiant) => etudiant.email !== emailAExclure));
   };
 
-  // Task 4: Modify a student's info
+  // Task 4: Modify a student's name
   const modifierEtudiant = (emailCible) => {
-    setEtudiants(
-      etudiants.map((etudiant) =>
+    const etudiantCible = etudiants.find((etudiant) => etudiant.email === emailCible);
+    if (!etudiantCible) return;
+
+    const nouveauNom = window.prompt("Entrez le nouveau nom :", etudiantCible.nom);
+    if (nouveauNom === null || !nouveauNom.trim()) return;
+
+    setEtudiants((etudiantsActuels) =>
+      etudiantsActuels.map((etudiant) =>
         etudiant.email === emailCible
-          ? { ...etudiant, ville: "Tunis" }
+          ? { ...etudiant, nom: nouveauNom.trim() }
           : etudiant
       )
     );

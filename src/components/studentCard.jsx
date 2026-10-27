@@ -40,7 +40,7 @@ function StudentCard(props) {
 
       {/* Task 4: Button to modify student info */}
       <button onClick={props.modifier} style={{ backgroundColor: "#ffc107", color: "black", margin: "5px 0", display: "block" }}>
-        Modifier la ville
+        Modifier le nom
       </button>
 
       {/* Task 3: Button to delete student */}
