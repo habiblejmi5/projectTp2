@@ -37,9 +37,8 @@ function StudentCard(props) {
         {coordonneesVisibles ? "Masquer les coordonnées" : "Afficher les coordonnées"}
       </button>
 
-      {/* Task 4: Button to modify student info */}
       <button className="edit-button" onClick={props.modifier}>
-        Modifier le nom
+        Modifier
       </button>
 
       {/* Task 3: Button to delete student */}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./app.css";
 import Header from "./components/header.jsx";
 import Navbar from "./components/navbar.jsx";
@@ -7,37 +7,42 @@ import StudentCard from "./components/studentCard.jsx";
 import studentImage1 from "./assets/1.jpg"; 
 import studentImage2 from "./assets/2.jpeg"; 
 import studentImage3 from "./assets/3.jpeg"; 
+import StudentForm from "./components/studentform.jsx";
 
 function App() {
+  const nextStudentId = useRef(4);
   const [etudiants, setEtudiants] = useState([
     {
+      id: 1,
       prenom: "amine ",
       nom: "amine",
       email: "slimboubaker@gmail.com",
       telephone: "+216 99 999 999",
-      filiere: "Génie Logiciel et Systèmes d'Information",
+      filiere: "GLSI",
       anneeEtude: "2ème année",
       groupe: "GLSI 2",
       ville: "Mahdia",
       image: studentImage1,
     },
     {
+      id: 2,
       prenom: "mahdi ",
       nom: "mahdi",
       email: "sarra.trabelsi@gmail.com",
       telephone: "+216 22 345 678",
-      filiere: "Génie Logiciel et Systèmes d'Information",
+      filiere: "DSI",
       anneeEtude: "2ème année",
       groupe: "GLSI 1",
       ville: "Sousse",
       image: studentImage2,
     },
     {
+      id: 3,
       prenom: "sousou",
       nom: "boubou",
       email: "mariem.khalfallah@gmail.com",
       telephone: "+216 27 567 890",
-      filiere: "Génie Logiciel et Systèmes d'Information",
+      filiere: "GLSI",
       anneeEtude: "2ème année",
       groupe: "GLSI 2",
       ville: "Sfax",
@@ -45,46 +50,43 @@ function App() {
     },
   ]);
 
-  // Task 5: State for the field of study filter
-  const [filiereFiltree, setFiliereFiltree] = useState("Tous");
+  const [etudiantAModifier, setEtudiantAModifier] = useState(null);
 
-  // Task 1: Add a student
-  const ajouterEtudiant = () => {
-    const nouvelEtudiant = {
-      prenom: "Yassine",
-      nom: "Ben Salem",
-      email: "yassine.bensalem@gmail.com",
-      telephone: "+216 44 444 444",
-      filiere: "Génie Logiciel et Systèmes d'Information",
-      anneeEtude: "2ème année",
-      groupe: "GLSI 1",
-      ville: "Kairouan",
-      image: studentImage1,
+  // State for the field of study filter
+  const [filiereFiltree, setFiliereFiltree] = useState("Tous");
+  //generer new id
+  function genererNouvelId() {
+    const id = nextStudentId.current;
+    nextStudentId.current += 1;
+    return id;
+  }
+
+  // Task 1: Add a student function adapted from TP 4 (Slide 30)
+  function ajouterEtudiant(nouvelEtudiant) {
+    const etudiantAvecId = {
+      ...nouvelEtudiant,
+      id: genererNouvelId(),
     };
-    setEtudiants([...etudiants, nouvelEtudiant]);
-  };
+    setEtudiants((anciensEtudiants) => [...anciensEtudiants, etudiantAvecId]);
+  }
 
   // Task 3: Delete a student
-  const supprimerEtudiant = (emailAExclure) => {
-    setEtudiants(etudiants.filter((etudiant) => etudiant.email !== emailAExclure));
+  const supprimerEtudiant = (idAExclure) => {
+    setEtudiants((etudiantsActuels) =>
+      etudiantsActuels.filter((etudiant) => etudiant.id !== idAExclure)
+    );
   };
 
-  // Task 4: Modify a student's name
-  const modifierEtudiant = (emailCible) => {
-    const etudiantCible = etudiants.find((etudiant) => etudiant.email === emailCible);
-    if (!etudiantCible) return;
-
-    const nouveauNom = window.prompt("Entrez le nouveau nom :", etudiantCible.nom);
-    if (nouveauNom === null || !nouveauNom.trim()) return;
-
+  function modifierEtudiant(etudiantModifie) {
     setEtudiants((etudiantsActuels) =>
       etudiantsActuels.map((etudiant) =>
-        etudiant.email === emailCible
-          ? { ...etudiant, nom: nouveauNom.trim() }
+        etudiant.id === etudiantModifie.id
+          ? etudiantModifie
           : etudiant
       )
     );
-  };
+    setEtudiantAModifier(null);
+  }
 
   // Task 5: Filter students based on selection
   const etudiantsFiltres = filiereFiltree === "Tous"
@@ -94,26 +96,31 @@ function App() {
   return (
     <div className="container">
       <Header />
-      <Navbar />
-      
-      <main>
+      <Navbar />       
         <div className="student-actions">
-          <button onClick={ajouterEtudiant}>+ Ajouter un étudiant</button>
-
-          {/* Task 5: Dropdown filter */}
+          {/* Dropdown filter */}
           <select 
             value={filiereFiltree} 
             onChange={(e) => setFiliereFiltree(e.target.value)}
           >
             <option value="Tous">Toutes les filières</option>
-            <option value="Génie Logiciel et Systèmes d'Information">Génie Logiciel et Systèmes d'Information</option>
+            <option value="GLSI">GLSI</option>
+            <option value="DSI">DSI</option>
+            <option value="RSI">RSI</option>
           </select>
         </div>
 
-        {/* Map through the filtered list */}
+        <StudentForm
+          key={etudiantAModifier ? etudiantAModifier.id : "nouveau"}
+          etudiantAModifier={etudiantAModifier}
+          onAjouterEtudiant={ajouterEtudiant}
+          onModifierEtudiant={modifierEtudiant}
+        />
+
+      <main>
         {etudiantsFiltres.map((etudiant) => (
           <StudentCard
-            key={etudiant.email}
+            key={etudiant.id}
             prenom={etudiant.prenom}
             nom={etudiant.nom}
             email={etudiant.email}
@@ -123,8 +130,8 @@ function App() {
             groupe={etudiant.groupe}
             ville={etudiant.ville}
             image={etudiant.image}
-            supprimer={() => supprimerEtudiant(etudiant.email)}
-            modifier={() => modifierEtudiant(etudiant.email)}
+            supprimer={() => supprimerEtudiant(etudiant.id)}
+            modifier={() => setEtudiantAModifier(etudiant)}
           />
         ))}
       </main>
