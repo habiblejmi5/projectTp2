@@ -1,32 +1,89 @@
 .home-page {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  overflow: hidden;
   max-width: 760px;
   margin: 0 auto;
-  padding: 48px 28px;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: var(--paper);
+  padding: clamp(56px, 9vw, 88px) 28px;
+  border: 1px solid rgba(29, 43, 63, 0.08);
+  border-radius: 24px;
+  background:
+    radial-gradient(ellipse at 100% 0, rgba(197, 155, 95, 0.2), transparent 48%),
+    linear-gradient(145deg, #fffefa 15%, #f8f5ed 100%);
+  box-shadow: 0 24px 60px rgba(29, 43, 63, 0.09);
   text-align: center;
 }
 
+.home-page::before {
+  position: absolute;
+  z-index: -1;
+  top: -90px;
+  right: -60px;
+  width: 240px;
+  height: 240px;
+  border: 1px solid rgba(197, 155, 95, 0.28);
+  border-radius: 50%;
+  content: "";
+}
+
+.home-page::after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 72px;
+  height: 4px;
+  border-radius: 4px 4px 0 0;
+  background: var(--gold);
+  content: "";
+  transform: translateX(-50%);
+}
+
 .home-page .eyebrow {
-  margin: 0 0 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
   color: var(--gold);
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+
+.home-page .eyebrow::before,
+.home-page .eyebrow::after {
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  content: "";
 }
 
 .home-page h2 {
   margin: 0;
   color: var(--navy);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(2.4rem, 6vw, 3.8rem);
   font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
 }
 
 .home-page > p:last-child {
   max-width: 520px;
-  margin: 18px auto 0;
+  margin: 22px auto 0;
   color: var(--muted);
-  line-height: 1.7;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+@media (max-width: 600px) {
+  .home-page {
+    padding: 58px 22px;
+    border-radius: 18px;
+  }
+
+  .home-page h2 {
+    font-size: clamp(1.9rem, 8vw, 2.5rem);
+  }
 }
