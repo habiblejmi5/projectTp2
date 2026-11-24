@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "preview": "vite preview"
-},
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/habiblejmi5/projectTp2.git"
@@ -22,7 +22,8 @@
   "homepage": "https://github.com/habiblejmi5/projectTp2#readme",
   "dependencies": {
     "react": "^19.3.1",
-    "react-dom": "^19.3.1"
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.6"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^6.1.2",

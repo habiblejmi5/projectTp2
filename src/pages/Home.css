@@ -1,0 +1,32 @@
+.home-page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 28px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--paper);
+  text-align: center;
+}
+
+.home-page .eyebrow {
+  margin: 0 0 12px;
+  color: var(--gold);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.home-page h2 {
+  margin: 0;
+  color: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 500;
+}
+
+.home-page > p:last-child {
+  max-width: 520px;
+  margin: 18px auto 0;
+  color: var(--muted);
+  line-height: 1.7;
+}

@@ -1,0 +1,50 @@
+.student-detail {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper);
+  text-align: center;
+}
+
+.student-detail > img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.student-detail h2 {
+  color: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.student-detail dl {
+  margin: 24px 0;
+  text-align: left;
+}
+
+.student-detail dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.student-detail dt {
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.student-detail dd {
+  margin: 0;
+  color: var(--muted);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.student-detail a {
+  color: var(--navy);
+}

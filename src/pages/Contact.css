@@ -1,0 +1,25 @@
+.contact-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper);
+}
+
+.contact-page h2 {
+  margin-top: 0;
+  color: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.contact-page address,
+.contact-page p {
+  color: #596679;
+  font-style: normal;
+  line-height: 1.7;
+}
+
+.contact-page a {
+  color: var(--navy);
+}

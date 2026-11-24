@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "../app.css";
 
 function StudentCard(props) {
@@ -18,7 +19,7 @@ function StudentCard(props) {
         src={props.image}
         alt={`${props.prenom} ${props.nom}`}
       />
-      <h2>{props.prenom} {props.nom}</h2>
+      <h2><Link to={`/etudiants/${props.id}`}>{props.prenom} {props.nom}</Link></h2>
       <p><strong>Filière:</strong> {props.filiere}</p>
       <p><strong>Année:</strong> {props.anneeEtude}</p>
       <p><strong>Groupe:</strong> {props.groupe}</p>
